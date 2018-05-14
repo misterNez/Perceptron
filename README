@@ -1,0 +1,74 @@
+Author: Nick Nesbit
+Professor: Mark Hauschild
+Date: 5/2/2018
+
+
+Description:
+
+	Artificial Intelligence: CS 4300
+	Project #5: Learning with a Perceptron
+
+	*The task is to implement a perceptron learning algorithm and train it with a file that contains a collection of sample data.
+	
+	*User should then be able to enter a sample query and receive a classification that follows the decision tree logic.
+	
+	*Input file should look something like the following: 
+		5 3
+		1 1 1 -1
+		1 -1 -1 1
+		-1 -1 1 1
+		1 1 -1 -1
+		1 -1 -1 1  
+		
+	*The first number on the first line specifies the number of samples.
+	*The second number on the first line specifies the number of attributes.
+	*The remaining lines contain a single sample, with attribute values seperated by a space, and 
+	 the final number at the end of each line specifying the classification for that sample.
+	
+Solution Method:
+
+	*Terminology:
+					Update: an update occurs when a sample is misclassified by the PLA and the classification equation weights are changed.
+					Iteration: an iteration occurs every time the PLA iterates over all the samples in the training set.
+					Error rate: The number of samples in the training set that are misclassified 
+
+	*To start, each weight is initialized to a random floating point value between 0 and 10.
+	
+	*The training samples are then iterated over, checking to see if the equation correctly classifies them.
+	
+	*If a sample is misclassified then we update the weights.
+	
+	*Update rules: 	
+	
+		weight[0] = weight[0] + LEARN_RATE * K_RATE * currentSampleClass;
+		weight[i] = weight[i] + LEARN_RATE * currentSampleClass * currentSampleAttributes[i-1] ;  where 1 <= i <= number of attributes
+					
+		**LEARN_RATE and K_RATE are configurable constants. I set them both equal to 1.
+					
+	*This process is repeated until the number of iterations surpassed a constant called MAX_ITERATION or until the error rate is zero.
+	 
+		**I set the constant MAX_ITERATION equal to 1000000.
+		
+	*Information regarding the learning results is then displayed.
+		
+	*The user can then enter a test sample. The program runs this sample through the equation and displays the classification.  
+	
+Environment:
+
+	*Developed with C++ using the Eclipse IDE on Windows 10 on a 64-bit Lenovo laptop.
+	*See Makefile for compilation details.
+	*Able to run on command line like so: ./PLA filename
+
+Files:
+
+	perceptron.cpp:		Main driver file.
+	
+	sample.h: 			Declares structure for a sample.
+	
+	data1				A textfile containing random sample data. This data is not linearly seperable.
+	
+	data2				A textfile containing random sample data. This data is linearly seperable
+	
+Problems:
+
+	Checking validity of user input may not be perfect.
